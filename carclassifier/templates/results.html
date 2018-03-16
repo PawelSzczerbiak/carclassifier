@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Carclassifier</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+	<h3>Your opinion:</h3>
+	<div> {{ content }} </div>
+
+	<h3>Our prediction:</h3>
+	<div>Your opinion is <strong> {{ prediction }} </strong>
+	 with {{ probability }}% probability </div>
+
+	 <div id='button'>
+	 	<form action="/thanks" method="post">
+	 		<input type=submit value='Correct' name='feedback_button'>
+	 		<input type=submit value='Incorrect' name='feedback_button'>
+	 		<input type=hidden value='{{ prediction }}' name='prediction'>
+	 		<input type=hidden value='{{ content }}' name='review'>
+	 	</form>
+
+
+ 	<div id='button'>
+ 		<form action="/">
+ 			<input type=submit value="Submit another opinion">
+ 		</form>
+ 	</div>
+
+</body>
+</html>
