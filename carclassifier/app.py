@@ -3,9 +3,9 @@ from wtforms import Form, TextAreaField, validators
 import pickle
 import sqlite3
 import os
-import numpy as np
 
 from vectorizer import vect
+from update import update_model
 
 app = Flask(__name__)
 
@@ -19,6 +19,14 @@ clf = pickle.load(open(os.path.join(cur_dir,
                  'classifier.pkl'), 'rb'))
 # database path
 db = os.path.join(cur_dir, 'reviews.sqlite')
+
+# model update - based on db content
+#clf = update_model(db_path=db, model=clf, batch_size=10000)
+
+# WARNING: save updated model into classifier.pkl permanently
+#pickle.dump(clf, open(os.path.join(cur_dir,
+#	'pkl_objects', 'classifier.pkl'), 'wb')
+#	, protocol=4)
 
 # classification
 def classify(opinion):
@@ -38,7 +46,7 @@ def sqlite_entry(path, opinion, y):
 	conn = sqlite3.connect(path)
 	c = conn.cursor()
 	c.execute("INSERT INTO review_db (review, sentiment, date)" \
-		"VALUES (?, ?, DATETIME('now'))", (opinion, y))
+		" VALUES (?, ?, DATETIME('now'))", (opinion, y))
 	conn.commit()
 	conn.close()
 
@@ -79,10 +87,9 @@ def feedback():
 		y = int(not(y)) # reverse
 
 	train(review, y)
-	print(review, y, db)
 	sqlite_entry(db, review, y)
 
 	return render_template('thanks.html')
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(debug=False)
