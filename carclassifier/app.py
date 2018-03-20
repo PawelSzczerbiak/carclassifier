@@ -20,8 +20,8 @@ clf = pickle.load(open(os.path.join(cur_dir,
 # database path
 db = os.path.join(cur_dir, 'reviews.sqlite')
 
-# model update - based on db content
-#clf = update_model(db_path=db, model=clf, batch_size=10000)
+# model update - based on db content 
+clf = update_model(db_path=db, model=clf, batch_size=10000)
 
 # WARNING: save updated model into classifier.pkl permanently
 #pickle.dump(clf, open(os.path.join(cur_dir,
@@ -45,8 +45,8 @@ def train(opinion, y):
 def sqlite_entry(path, opinion, y):
 	conn = sqlite3.connect(path)
 	c = conn.cursor()
-	c.execute("INSERT INTO review_db (review, sentiment, date)" \
-		" VALUES (?, ?, DATETIME('now'))", (opinion, y))
+	c.execute("INSERT INTO review_db (review, sentiment, date)"\
+	" VALUES (?, ?, DATETIME('now'))", (opinion, y))
 	conn.commit()
 	conn.close()
 
@@ -92,4 +92,4 @@ def feedback():
 	return render_template('thanks.html')
 
 if __name__ == '__main__':
-	app.run(debug=False)
+	app.run(debug=True)

@@ -2,22 +2,40 @@
 <html>
 <head>
 	<title>Carclassifier</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cover.css') }}">
 </head>
-<body>
+<body class="text-center">
 
-	<h4>Enter opinion about your car (in Polish):</h3>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+
+    <header class="masthead mb-auto">
+          <h4>Carclassifier</h4>
+  	</header>
+
+	<main role="main" class="inner cover">
+
+	<h2>Enter opinion about your car:</h2>
+	<p class="lead">(opinion must contain at least 2 characters and be written in Polish)</p>
 
 	{% from "_formhelpers.html" import render_field %}
 
 	<form method=post action="/results">
 		<dl>
-			{{ render_field(form.carreview, cols='30', rows='10', placeholder='np. Samochód jest niezły :)') }}
+			{{ render_field(form.carreview, cols='30', rows='5', placeholder='np. Samochód jest niezły :)') }}
 		</dl>
-		<div>
-			<input type=submit value='Submit review' name='submit_btn'>
-		</div>
+		<input type=submit value='Submit review' name='submit_btn' class="btn btn-lg btn-secondary">
 	</form>
+
+	</main>
+
+	<footer class="mastfoot mt-auto">
+		<div class="inner">
+		  <p>See code on <a href="https://github.com/PawelSzczerbiak/carclassifier">GitHub</a></p>
+		</div>
+	</footer>
+   </div>	
 
 </body>
 </html>

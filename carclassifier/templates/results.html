@@ -2,31 +2,51 @@
 <html>
 <head>
 	<title>Carclassifier</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cover.css') }}">
 </head>
-<body>
+<body class="text-center">
 
-	<h3>Your opinion:</h3>
-	<div> {{ content }} </div>
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
 
-	<h3>Our prediction:</h3>
-	<div>Your opinion is <strong> {{ prediction }} </strong>
-	 with {{ probability }}% probability </div>
+    <header class="masthead mb-auto">
+          <h4>Carclassifier</h4>
+      </header>
 
-	 <div id='button'>
+      <main role="main" class="inner cover">
+
+		<h2>Your opinion:</h3>
+		<p class="lead">{{ content }}</p>
+	
+		<h2>Our prediction:</h3>
+		<p class="lead">
+			Opinion is {{ prediction }} with {{ probability }}% probability
+		</p>
+
+ 		<p class="lead">
 	 	<form action="/thanks" method="post">
-	 		<input type=submit value='Correct' name='feedback_button'>
-	 		<input type=submit value='Incorrect' name='feedback_button'>
+ 			<input type=submit value='Correct' name='feedback_button' class="btn btn-lg btn-secondary">
+ 			<input type=submit value='Incorrect' name='feedback_button' class="btn btn-lg btn-secondary">
 	 		<input type=hidden value='{{ prediction }}' name='prediction'>
 	 		<input type=hidden value='{{ content }}' name='review'>
 	 	</form>
+	 	</p>
 
-
- 	<div id='button'>
+ 		<p class="lead">		
  		<form action="/">
- 			<input type=submit value="Submit another opinion">
+ 			<input type=submit value="Submit another opinion" class="btn btn-lg btn-secondary">
  		</form>
- 	</div>
+		</p>
+
+      </main>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>See code on <a href="https://github.com/PawelSzczerbiak/carclassifier">GitHub</a></p>
+        </div>
+      </footer>
+   </div>
 
 </body>
 </html>
